@@ -5,6 +5,7 @@ import com.project.contactBook.dao.PhoneNumberDao;
 import com.project.contactBook.entity.PhoneNumber;
 import com.project.contactBook.service.PhoneNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,9 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
 
     @Autowired
     PhoneNumberDao phoneNumberDao;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public PhoneNumber finById(Long id) {
@@ -43,5 +47,15 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
     @Override
     public void upDate(PhoneNumber obj) {
         phoneNumberDao.saveAndFlush(obj);
+    }
+
+    public boolean isNumberExists(Long id) {
+        String sql = "SELECT COUNT (*) FROM PHONE_NUMBER WHERE PHONE_NUMBER_ID = ?";
+        boolean result = false;
+        int count = jdbcTemplate.queryForObject(sql, new Object[] { id }, Integer.class);
+        if (count > 0) {
+            result = true;
+        }
+        return result;
     }
 }

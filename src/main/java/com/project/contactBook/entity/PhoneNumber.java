@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "phone_number")
 
-public class PhoneNumber {
+public class PhoneNumber implements Serializable {
     @Id
     @Column(name = "phoneNumber_id")
     @SequenceGenerator(name = "phone_number_seq", sequenceName = "phone_number_seq", allocationSize = 1)

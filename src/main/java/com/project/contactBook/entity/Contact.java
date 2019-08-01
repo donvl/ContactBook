@@ -3,13 +3,14 @@ package com.project.contactBook.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "contact")
 
-public class Contact {
+public class Contact implements Serializable {
     @Id
     @Column(name = "contact_id")
     @SequenceGenerator(name = "contact_seq", sequenceName = "contact_seq", allocationSize = 1)
